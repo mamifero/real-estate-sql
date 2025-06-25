@@ -1,0 +1,22 @@
+services:
+  db:
+    image: 'mysql/mysql-server:8.0'
+    container_name: realstate-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: real_estate
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root123
+      MYSQL_USER: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - db-vol:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  db-vol:
+    driver: local
